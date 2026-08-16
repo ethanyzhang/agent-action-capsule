@@ -14,7 +14,7 @@ CPB      = draft-mih-sokolov-scitt-payload-binding-00
 XML2RFC  ?= ~/.venvs/x2r/bin/xml2rfc
 KDRFC    ?= kramdown-rfc
 
-.PHONY: all bilateral cpb clean idnits
+.PHONY: all bilateral cpb clean idnits check
 
 all: $(DRAFT).xml $(DRAFT).txt
 
@@ -50,6 +50,9 @@ $(CPB).txt: $(CPB).xml
 
 idnits: $(DRAFT).txt
 	npx --yes @ietf-tools/idnits $(DRAFT).txt
+
+check:
+	python3 check_verdict_class_refs.py
 
 clean:
 	rm -f .$(DRAFT).v2.xml .$(BILATERAL).v2.xml .$(CPB).v2.xml
